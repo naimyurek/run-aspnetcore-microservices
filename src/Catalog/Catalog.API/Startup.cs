@@ -44,9 +44,12 @@ namespace Catalog.API
 
             #region Project Dependencies
 
+            services.AddSingleton<IGenericRepository, GenericRepository>();
             services.AddTransient<ICatalogContext, CatalogContext>();
             services.AddTransient<IProductRepository, ProductRepository>();
 
+            services.AddTransient<IContactContext, ContactContext>();
+            services.AddTransient<IContactRepository, ContactRepository>();
             #endregion
 
             #region Swagger Dependencies

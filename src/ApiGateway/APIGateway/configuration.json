@@ -37,6 +37,32 @@
       "UpstreamPathTemplate": "/Catalog/GetProductByCategory/{category}",
       "UpstreamHttpMethod": [ "GET" ]
     },
+    //Contact API
+    {
+      "DownstreamPathTemplate": "/api/v1/Contact",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "catalogapi",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/Contact",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/v1/Contact/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "catalogapi",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/Contact/{id}",
+      "UpstreamHttpMethod": [ "GET", "DELETE" ]
+    },
     //Basket API
     {
       "DownstreamPathTemplate": "/api/v1/Basket",

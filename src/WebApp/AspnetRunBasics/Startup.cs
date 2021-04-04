@@ -41,6 +41,7 @@ namespace AspnetRunBasics
             services.AddTransient<ICatalogApi, CatalogApi>();
             services.AddTransient<IBasketApi, BasketApi>();
             services.AddTransient<IOrderApi, OrderApi>();
+            services.AddTransient<IContactApi, ContactApi>();
             services.AddScoped<IBasketRepository, BasketRepository>();
 
             #endregion

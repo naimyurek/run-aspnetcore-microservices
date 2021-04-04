@@ -6,5 +6,6 @@
         public string CatalogPath { get; set; }
         public string BasketPath { get; set; }
         public string OrderPath { get; set; }
+        public string ContactPath { get; set; }
     }
 }

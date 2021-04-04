@@ -20,6 +20,7 @@ namespace Catalog.API.Controllers
         {
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+
         }
 
         [HttpGet]

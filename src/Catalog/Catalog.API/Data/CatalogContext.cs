@@ -2,18 +2,18 @@
 using Catalog.API.Entities;
 using Catalog.API.Settings;
 using MongoDB.Driver;
+using System;
 
 namespace Catalog.API.Data
 {
     public class CatalogContext : ICatalogContext
     {
-        public CatalogContext(ICatalogDatabaseSettings settings)
+        //private readonly IGenericRepository  _genericRepository;
+        public CatalogContext(IGenericRepository genericRepository)
         {
-            var client = new MongoClient(settings.ConnectionString);
-            var database = client.GetDatabase(settings.DatabaseName);
-
-            Products = database.GetCollection<Product>(settings.CollectionName);
-            CatalogContextSeed.SeedData(Products);
+            //_genericRepository = _genericRepository ?? throw new ArgumentNullException(nameof(_genericRepository));
+            Products = genericRepository.MongoDatabase.GetCollection<Product>("Products");
+           // CatalogContextSeed.SeedData(Products);
         }
 
         public IMongoCollection<Product> Products { get; }

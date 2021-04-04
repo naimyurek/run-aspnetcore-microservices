@@ -23,15 +23,31 @@
     </div>
 </div>
 
+@Html.ValidationSummary(true)
 
 <div class="container">
-    <h1 class="headingPage">Page Contact Us</h1>
+    <div class="row">
+        <div class="col">
+            @if (TempData["ContactInfo"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>@TempData["ContactInfo"].ToString()</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <h1 class="headingPage">Bize Ulaşın</h1>
 
     <div id="shopify-section-nov-page-contact" class="shopify-section index-section page-contact">
         <div class="boxInformationImage">
             <div class="row">
                 <div class="col-md-4 d-flex mb-sm-30">
-
                     <div class="content">
                         <div class="tt_i_contact">Call Customer Services :</div>
                         <div class="sub_i_contact sub_bold">84-0123-456-789</div>
@@ -111,25 +127,34 @@
                 </div>
                 <div class="col-xl-8 col-lg-8 col-md-12 col-xs-12">
                     <div class="contact-form form-vertical">
-                        <form method="post" asp-page-handler="ContactForm" id="contact_form" accept-charset="UTF-8" class="contact-form">
+                        <form method="post" asp-page="Contact" asp-page-handler="ContactForm" id="contact_form" accept-charset="UTF-8" class="contact-form">
+                            @Html.AntiForgeryToken()
                             <input type="hidden" name="form_type" value="contact"><input type="hidden" name="utf8" value="✓">
                             <div class="form-group row spacing-10">
                                 <div class="col-md-6 mb-sm-10">
-                                    <input type="text" id="ContactFormName" name="contact_name" value="" class="" placeholder="Your Name" required="">
+                                    <div asp-validation-summary="ModelOnly"></div>
+                                    <span asp-validation-for="contactViewModel.Name"></span>
+                                    <input type="text" id="ContactFormName" asp-for="contactViewModel.Name" class="" placeholder="Adınız Soyadınız" required="">
                                 </div>
                                 <div class="col-md-6">
-                                    <input type="email" id="ContactFormEmail" name="contact_email" value="" class="" placeholder="Your Email" required="">
+                                    <div asp-validation-summary="ModelOnly"></div>
+                                    <span asp-validation-for="contactViewModel.Email"></span>
+                                    <input type="email" id="ContactFormEmail" asp-for="contactViewModel.Email" class="" placeholder="E-Posta Adresiniz" required="">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-md-12">
-                                    <input type="tel" id="ContactFormPhone" name="contact_phone" pattern="[0-9\-]*" value="" class="" placeholder="Phone Number">
+                                    <div asp-validation-summary="ModelOnly"></div>
+                                    <span asp-validation-for="contactViewModel.Phone"></span>
+                                    <input type="tel" id="ContactFormPhone" asp-for="contactViewModel.Phone" pattern="[0-9\-]*" class="" placeholder="Telefonunuz">
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <div class="col-md-12">
-                                    <textarea rows="15" cols="50" id="ContactFormMessage" name="contact_message" placeholder="Message"></textarea>
+                                    <div asp-validation-summary="ModelOnly"></div>
+                                    <span asp-validation-for="contactViewModel.Message"></span>
+                                    <textarea rows="15" cols="50" id="ContactFormMessage" asp-for="contactViewModel.Message" required="" placeholder="Mesajınız"></textarea>
                                 </div>
                             </div>
                             <button class="btn btn_message" type="submit">
@@ -142,3 +167,5 @@
         </div>
     </div>
 </div>
+
+
