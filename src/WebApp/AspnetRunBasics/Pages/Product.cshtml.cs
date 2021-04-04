@@ -20,7 +20,7 @@ namespace AspnetRunBasics
             _basketRepository = basketRepository ?? throw new ArgumentNullException(nameof(basketRepository));
         }
 
-        public IEnumerable<string> CategoryList { get; set; } = new List<string>();
+        public IEnumerable<CategoryModel> CategoryList { get; set; } = new List<CategoryModel>();
         public IEnumerable<CatalogModel> ProductList { get; set; } = new List<CatalogModel>();
 
 
@@ -31,7 +31,12 @@ namespace AspnetRunBasics
         {
             var productList = await _catalogApi.GetCatalog();
 
-            CategoryList = productList.Select(p => p.Category).Distinct();            
+            //CategoryList = productList.Select(p => p.Category).Distinct();         
+            
+            CategoryList = from product in productList
+                     orderby product.Category
+                     group product by product.Category into Category
+                     select new CategoryModel(){ Name = Category.Key, Count = Category.Count() };
 
             if (!string.IsNullOrWhiteSpace(categoryName))
             {

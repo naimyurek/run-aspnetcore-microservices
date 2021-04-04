@@ -46,17 +46,17 @@
 
                             <div class="categories__sidebar sidebar-block sidebar-block__1">
 
-                                <div class="title-block mb-30">
-                                    Tüm Ürünler
+                                <div class="title-block mt-15">
+                                    <a asp-page="Product">Tüm Ürünler</a>
                                 </div>
 
                                 <ul class="list-unstyled">
 
                                     @foreach (var category in Model.CategoryList)
                                     {
-                                    <li class="d-flex mb-10 @( Model.SelectedCategory == category?"is-active":"" )">
-                                        <a asp-page="Product" asp-route-categoryName="@category" title="Bread">@category</a>
-                                        <span class="count_all">24</span>
+                                    <li class="d-flex mb-10 @( Model.SelectedCategory == category.Name?"is-active":"" )">
+                                        <a asp-page="Product" asp-route-categoryName="@category.Name" title="Bread">@category.Name</a>
+                                        <span class="count_all">@category.Count</span>
                                     </li>
                                     }
                                 </ul>

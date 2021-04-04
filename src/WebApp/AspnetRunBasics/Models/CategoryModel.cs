@@ -7,8 +7,7 @@ namespace AspnetRunBasics.Models
 {
     public class CategoryModel
     {
-        //Daha Sonra ürün sayısını göstermek istedğinde kullan
-        public  string CategoryName { get; set; }
-        public decimal ProductCount { get; set; }
+        public  string Name { get; set; }
+        public decimal Count { get; set; }
     }
 }
