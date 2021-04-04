@@ -22,9 +22,6 @@ namespace AspnetRunBasics
 
         }
 
-        [BindProperty]
-        public ContactViewModel contactViewModel { get; set; } = new ContactViewModel();
-
         public IActionResult OnGet()
         {
             return Page();
@@ -36,16 +33,15 @@ namespace AspnetRunBasics
 #pragma warning disable MVC1001 // Filters cannot be applied to page handler methods.
         [ValidateAntiForgeryToken]
 #pragma warning restore MVC1001 // Filters cannot be applied to page handler methods.
-        public IActionResult OnPostContactForm()
+        public IActionResult OnPostContactForm(ContactViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            var r = _contactApi.CreateContact(contactViewModel);
-            TempData["ContactInfo"] = "Merhaba " + contactViewModel.Name + " mesajın gönderildi.";
-            contactViewModel = new ContactViewModel();
+            var r = _contactApi.CreateContact(model);
+            TempData["ContactInfo"] = "Merhaba " + model.Name + " mesajın gönderildi.";
             return Page();
         }
 

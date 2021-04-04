@@ -28,15 +28,14 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            @if (TempData["ContactInfo"] != null)
-            {
+            <div id="info-contact">
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong>@TempData["ContactInfo"].ToString()</strong>
+                    <strong id="info-contact-text"></strong>
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-            }
+            </div>
         </div>
     </div>
 </div>
@@ -132,33 +131,29 @@
                             <input type="hidden" name="form_type" value="contact"><input type="hidden" name="utf8" value="✓">
                             <div class="form-group row spacing-10">
                                 <div class="col-md-6 mb-sm-10">
-                                    <div asp-validation-summary="ModelOnly"></div>
-                                    <span asp-validation-for="contactViewModel.Name"></span>
-                                    <input type="text" id="ContactFormName" asp-for="contactViewModel.Name" class="" placeholder="Adınız Soyadınız" required="">
+                                    @Html.ValidationMessage("Name")
+                                    <input type="text" id="ContactFormName" name="Name" class="" placeholder="Adınız Soyadınız" required="" value="">
                                 </div>
                                 <div class="col-md-6">
-                                    <div asp-validation-summary="ModelOnly"></div>
-                                    <span asp-validation-for="contactViewModel.Email"></span>
-                                    <input type="email" id="ContactFormEmail" asp-for="contactViewModel.Email" class="" placeholder="E-Posta Adresiniz" required="">
+                                    @Html.ValidationMessage("Email")
+                                    <input type="email" id="ContactFormEmail" name="Email" class="" placeholder="E-Posta Adresiniz" required="" value="">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-md-12">
-                                    <div asp-validation-summary="ModelOnly"></div>
-                                    <span asp-validation-for="contactViewModel.Phone"></span>
-                                    <input type="tel" id="ContactFormPhone" asp-for="contactViewModel.Phone" pattern="[0-9\-]*" class="" placeholder="Telefonunuz">
+                                    @Html.ValidationMessage("Phone")
+                                    <input type="tel" id="ContactFormPhone" name="Phone" pattern="[0-9\-]*" class="" placeholder="Telefonunuz" value="">
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <div class="col-md-12">
-                                    <div asp-validation-summary="ModelOnly"></div>
-                                    <span asp-validation-for="contactViewModel.Message"></span>
-                                    <textarea rows="15" cols="50" id="ContactFormMessage" asp-for="contactViewModel.Message" required="" placeholder="Mesajınız"></textarea>
+                                    @Html.ValidationMessage("Message")
+                                    <textarea rows="15" cols="50" id="ContactFormMessage" name="Message" required="" placeholder="Mesajınız"></textarea>
                                 </div>
                             </div>
                             <button class="btn btn_message" type="submit">
-                                <i class="icon-message"></i><span>Send message</span>
+                                <i class="icon-message"></i><span>Mesaj Gönder</span>
                             </button>
                         </form>
                     </div>
@@ -168,4 +163,26 @@
     </div>
 </div>
 
+@section Scripts
+{
+    <script>
+
+     $(function () {
+        var value = '@(TempData["ContactInfo"])';
+         if (value != "" && value != null) {
+             $("#info-contact").show();
+             $("#info-contact-text").text(value);
+     
+                 $("#ContactFormMessage").val("")
+                 $("#ContactFormName").val("")
+                 $("#ContactFormPhone").val("")
+                 $("#ContactFormEmail").val("")
+     
+         } else {
+             $("#info-contact").hide();
+         }
+     });
+
+    </script>>
+}
 
